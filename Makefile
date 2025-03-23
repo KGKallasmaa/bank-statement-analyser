@@ -1,0 +1,3 @@
+setup:
+	bash setup.sh
+
