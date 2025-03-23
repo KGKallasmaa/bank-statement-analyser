@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "bank-statement-analysis"
+version = "0.1.0"
+description = ""
+authors = ["Karl-Gustav Kallasmaa <29797627+KGKallasmaa@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+isodate = "^0.7.2"
+pydantic = "^2.10.6"
+langchain = "^0.3.21"
+markitdown = "^0.0.2"
+openai = "^1.68.2"
+dotenv = "^0.9.9"
+pdf2image = "^1.17.0"
+pypdf2 = "^3.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
