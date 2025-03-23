@@ -7,6 +7,20 @@ This script analyzes PDF bank statements to:
 2. Extract business name and address
 3. The net change in account balance according to the transactions and whether or not this reconciles with the balances present on the document
 """
+from pydantic import BaseModel
+import os
+from src.main.models.business_info import BusinessInfo
+from src.main.integrity import check_document_integrity
+from src.main.business_info import check_business_info
+from src.main.is_bank_statement import check_is_business_bank_statement
+from src.main.utils import get_pdf_metadata, get_first_page_as_markdown
+from src.main.llms import get_openai_client
+from src.main.balance_reconciliation import reconcile_balances
+from src.main.transaction_extraction import extract_transactions
+from dotenv import load_dotenv
+from src.main.prompts.balance_analysis import BALANCE_ANALYSIS_PROMPT
+from src.main.models.balance_analysis import BalanceAnalysis, Transaction
+from typing import Dict, Any, List, Optional
 from pathlib import Path
 import sys
 
@@ -19,22 +33,6 @@ for p in sys.path:
 project_root = Path(__file__).resolve().parent.parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
-
-from typing import Dict, Any, List, Optional
-from src.main.models.balance_analysis import BalanceAnalysis, Transaction
-from src.main.prompts.balance_analysis import BALANCE_ANALYSIS_PROMPT
-from dotenv import load_dotenv
-from src.main.transaction_extraction import extract_transactions
-from src.main.balance_reconciliation import reconcile_balances
-from src.main.llms import get_openai_client
-from src.main.utils import get_pdf_metadata, get_first_page_as_markdown
-from src.main.is_bank_statement import check_is_business_bank_statement
-from src.main.business_info import check_business_info
-from src.main.integrity import check_document_integrity
-from src.main.models.business_info import BusinessInfo
-from pathlib import Path
-import os
-from pydantic import BaseModel
 
 
 class AnalysisResult(BaseModel):
@@ -228,7 +226,7 @@ def main():
 
     print("Checking document integrity...")
     is_valid, integrity_message = check_document_integrity(pdf_path)
-    if not is_valid and 5>6:
+    if not is_valid:
         print(f"Document integrity check failed: {integrity_message}")
         sys.exit(1)
 

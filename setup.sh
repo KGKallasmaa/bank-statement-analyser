@@ -16,3 +16,9 @@ poetry shell
 
 # You can run additional commands here if needed, for example:
 # poetry run <command>
+
+poetry install
+
+echo "Poetry virtual environment activated."
+
+cd main

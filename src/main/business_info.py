@@ -20,7 +20,6 @@ if src_path not in sys.path:
     sys.path.insert(0, src_path)
 
 
-
 def validate_business_name(name: str) -> Tuple[bool, str]:
     """
     Validate that a business name is reasonable.
