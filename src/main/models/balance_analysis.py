@@ -1,20 +1,22 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional
-from datetime import date
+
 
 class Money(BaseModel):
     amount: float = Field(description="Amount of money")
     currency: str = Field(description="Currency of the money")
 
+
 class Transaction(BaseModel):
-    date: str
-    description: str
+    date: Optional[str] = None
+    description: Optional[str] = None
     money: Money
     reference: Optional[str] = None
 
 
 class PageTransactions(BaseModel):
     transactions: List[Transaction]
+
 
 class BalanceAnalysis(BaseModel):
     """Model for bank statement balance analysis"""

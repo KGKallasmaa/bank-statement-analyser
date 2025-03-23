@@ -5,7 +5,7 @@ BALANCE_ANALYSIS_PROMPT = ChatPromptTemplate.from_messages(
         (
             "system",
             """You are a financial document analyzer specialized in extracting balance information from bank statements.
-            
+
 Your task is to extract the opening and closing balances from the provided bank statement.
 
 Extract:
@@ -19,4 +19,4 @@ Return the information as a BalanceAnalysis object.
         ),
         ("human", "{text}"),
     ]
-) 
+)
